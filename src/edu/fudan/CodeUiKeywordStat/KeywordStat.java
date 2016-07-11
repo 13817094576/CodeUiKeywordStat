@@ -3,8 +3,10 @@ package edu.fudan.CodeUiKeywordStat;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 class KeywordStat 
 {
@@ -28,10 +30,7 @@ class KeywordStat
 				// Create new counter for current keyword
 				KeywordUsage usageCounter = new KeywordUsage();
 				usageCounter.keyword = curJimpleHit.keyword;
-				usageCounter.usedCount = 1;
-				
-				// Initialize usedNotShownCount the same value as usedCount first
-				usageCounter.usedNotShownCount = 1;
+				usageCounter.usedPackage.add(curJimpleHit.packageName);
 				
 				keywordUsage.put(curJimpleHit.keyword, usageCounter);
 			}
@@ -42,9 +41,16 @@ class KeywordStat
 				
 				KeywordUsage usageCounter = keywordUsage.get(curJimpleHit.keyword);
 				
-				usageCounter.usedCount++;
-				usageCounter.usedNotShownCount++;
+				usageCounter.usedPackage.add(curJimpleHit.packageName);
 			}
+		}
+		
+		//
+		// Initialize usedNotShown counter as the size of usedPackage set
+		Collection<KeywordUsage> usageSet = keywordUsage.values();
+		for (KeywordUsage curUsage : usageSet)
+		{
+			curUsage.usedNotShownCount = curUsage.usedPackage.size();
 		}
 		
 		//
@@ -91,10 +97,7 @@ class KeywordStat
 				// Create new counter for current keyword
 				KeywordUsage usageCounter = new KeywordUsage();
 				usageCounter.keyword = curJimpleHit.keyword;
-				usageCounter.usedCount = 1;
-				
-				// Initialize usedNotShownCount the same value as usedCount first
-				usageCounter.usedNotShownCount = 1;
+				usageCounter.usedPackage.add(curJimpleHit.packageName);
 				
 				keywordUsage.put(curJimpleHit.keyword, usageCounter);
 			}
@@ -105,10 +108,17 @@ class KeywordStat
 				
 				KeywordUsage usageCounter = keywordUsage.get(curJimpleHit.keyword);
 				
-				usageCounter.usedCount++;
-				usageCounter.usedNotShownCount++;
+				usageCounter.usedPackage.add(curJimpleHit.packageName);
 			}
 		}		
+		
+		//
+		// Set usedNotShownCount as the size of usedPackage set
+		Collection<KeywordUsage> usageSet = keywordUsage.values();
+		for (KeywordUsage curUsage : usageSet)
+		{
+			curUsage.usedNotShownCount = curUsage.usedPackage.size();
+		}
 	}
 	
 	KeywordStat(String jimpleStatFile, String uiStatFile)
@@ -153,6 +163,6 @@ class KeywordUsage
 {
 	String keyword;
 	
-	int usedCount;
+	Set<String> usedPackage = new HashSet<String>();
 	int usedNotShownCount;
 }

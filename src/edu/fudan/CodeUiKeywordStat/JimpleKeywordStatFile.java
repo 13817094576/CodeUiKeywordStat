@@ -56,8 +56,8 @@ class JimpleKeywordStatFile
 				return true;
 			}
 			
-			String[] lineParts = line.split(",", 3);
-			if (lineParts.length < 3)
+			String[] lineParts = line.split(",", 4);
+			if (lineParts.length < 4)
 			{
 				System.err.println("[WARN} Jimple Hit section line is invalid: " + line);
 				continue;
@@ -68,6 +68,7 @@ class JimpleKeywordStatFile
 			JimpleHit jimpleHitInst = new JimpleHit();
 			jimpleHitInst.jimpleId = Integer.parseInt(lineParts[0]);
 			jimpleHitInst.keyword = lineParts[1];
+			jimpleHitInst.packageName = lineParts[2];
 			
 			jimpleHit.add(jimpleHitInst);
 		}		
@@ -234,6 +235,7 @@ class JimpleHit
 {
 	int jimpleId;
 	String keyword;
+	String packageName;
 }
 
 class ActivityKeywordUsage

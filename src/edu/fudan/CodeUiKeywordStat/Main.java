@@ -81,7 +81,7 @@ public class Main
 			for (KeywordUsage curUsage : keywordUsage)
 			{
 				String outLine = String.format("%s,%s,%d,%d", 
-						appName, curUsage.keyword, curUsage.usedNotShownCount, curUsage.usedCount);
+						appName, curUsage.keyword, curUsage.usedNotShownCount, curUsage.usedPackage.size());
 				
 				System.out.println(outLine);
 			}
