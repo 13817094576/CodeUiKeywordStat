@@ -8,15 +8,31 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+
+	This is the worker class for doing actual keyword stat task
+
+ */
 class KeywordStat 
 {
+	//
+	// Keyword usage stat for output
 	private Map<String, KeywordUsage> keywordUsage = new HashMap<String, KeywordUsage>();
 	
+	/**
+	 
+		Generate statistics result by computing
+		
+		sizeof(set(JimpleHitKeywords) - set(KeywordsOnActivity)).
+
+	 */
 	private void diffKeywordStat(String jimpleStatFile, String uiStatFile)
 	{
 		//
 		// Leave parameter validation to StatFile class
 		
+		//
+		// Load both analysis log files
 		JimpleKeywordStatFile jimpleStat = new JimpleKeywordStatFile(jimpleStatFile);
 		UiKeywordStatFile uiStat = new UiKeywordStatFile(uiStatFile);
 		
@@ -37,7 +53,7 @@ class KeywordStat
 			else
 			{
 				//
-				// Increment the keyword usage counter already exists
+				// Increment the keyword usage counter which already exists
 				
 				KeywordUsage usageCounter = keywordUsage.get(curJimpleHit.keyword);
 				
@@ -46,7 +62,7 @@ class KeywordStat
 		}
 		
 		//
-		// Initialize usedNotShown counter as the size of usedPackage set
+		// Initialize usedNotShown counter to the size of usedPackage set
 		Collection<KeywordUsage> usageSet = keywordUsage.values();
 		for (KeywordUsage curUsage : usageSet)
 		{
@@ -70,6 +86,8 @@ class KeywordStat
 					// This keyword is shown on Activities
 					String keyword = activityClassKeyword.keyword;
 					
+					//
+					// Decrement the usedNotShowCount
 					if (keywordUsage.containsKey(keyword))
 					{
 						KeywordUsage usageCounter = keywordUsage.get(keyword);
@@ -80,6 +98,13 @@ class KeywordStat
 		}
 	}
 	
+	/**
+	 
+		This method implements JimpleKeywordStat log only stat.
+		
+		It's invoked when the UI parsing log is missing.
+
+	 */
 	private void jimpleKeywordStat(String jimpleStatFile)
 	{
 		//
@@ -159,6 +184,11 @@ class KeywordStat
 	}
 }
 
+/**
+
+	Data class for recording keyword usage results.
+
+ */
 class KeywordUsage
 {
 	String keyword;

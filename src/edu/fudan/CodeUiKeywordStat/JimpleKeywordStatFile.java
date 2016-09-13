@@ -4,6 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+
+	This class contains code for loading and parsing
+	the content of JimpleKeywordStat output log file
+
+ */
 class JimpleKeywordStatFile 
 {
 	//
@@ -128,12 +134,13 @@ class JimpleKeywordStatFile
 					break;
 				}
 			}
+			// Here we assume that the activity ID string is well-formatted
 			activityIdInStr = activityIdInStr.substring(idBegin);
 			
 			
 			try
 			{
-				usage.activityId = Integer.parseInt(lineParts[3]);
+				usage.activityId = Integer.parseInt(activityIdInStr);
 			}
 			catch (NumberFormatException e)
 			{
@@ -151,6 +158,13 @@ class JimpleKeywordStatFile
 		return false;
 	}	
 	
+	/**
+	 
+		Load and parse the content of JimpleKeywordStat log.
+		
+		The parsed info is saved to the instance fields of this class.
+
+	 */
 	private void loadStatFile(String statFileName)
 	{
 		//
@@ -210,6 +224,8 @@ class JimpleKeywordStatFile
 			throw new RuntimeException("Given jimple keyword stat file isn't valid: " + statFileName);
 		}
 		
+		//
+		// Load and parse the content of JimpleKeywordStat log
 		loadStatFile(statFileName);
 	}
 	

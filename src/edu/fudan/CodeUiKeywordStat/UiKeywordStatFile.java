@@ -4,10 +4,23 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+
+	This class contains code for loading and parsing
+	the content of UI parsing log file
+
+ */
 class UiKeywordStatFile 
 {
 	private List<UiKeyword> uiKeyword = new ArrayList<UiKeyword>();
-	
+
+	/**
+	 
+		Load and parse the content of UI parsing log file.
+		
+		Parsed content is stored in instance fields of this class.
+
+	 */
 	private void loadStatFile(String statFileName)
 	{
 		//
@@ -55,10 +68,14 @@ class UiKeywordStatFile
 					continue;
 				}
 				
+				//
+				// Create a new UI keyword data class instance
 				UiKeyword uiKeywordInst = new UiKeyword();
 				uiKeywordInst.activityId = activityId;
 				uiKeywordInst.keyword = keyword;
 				
+				//
+				// Record the keyword in UI
 				uiKeyword.add(uiKeywordInst);
 			}
 		}
@@ -74,6 +91,8 @@ class UiKeywordStatFile
 			throw new RuntimeException("Given UI keyword stat file isn't valid: " + statFileName);
 		}
 		
+		//
+		// Load and parse the content of UI parsing log
 		loadStatFile(statFileName);
 	}
 	

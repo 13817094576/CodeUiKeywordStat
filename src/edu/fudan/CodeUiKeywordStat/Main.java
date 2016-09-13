@@ -18,12 +18,19 @@ public class Main
 		System.out.println("This program is written and tested on Java 1.7");
 	}
 	
+	/**
+	 
+		Verify that if the arguments provided by user are valid.
+		
+		If not, terminate the execution of program.
+
+	 */
 	private static void CheckArguments(String[] args)
 	{
 		if (args.length < 2)
 		{
 			ShowUsage();
-			Runtime.getRuntime().exit(EXIT_NORMAL);;
+			Runtime.getRuntime().exit(EXIT_NORMAL);
 		}
 		
 		File jimpleKeywordStatDir = new File(args[0]);
@@ -41,10 +48,10 @@ public class Main
 		}		
 	}
 	
-	
-	
 	public static void main(String[] args) 
 	{
+		//
+		// Verify if the arguments provided by user are valid
 		CheckArguments(args);
 		
 		File jimpleKeywordStatDir = new File(args[0]);
@@ -69,6 +76,9 @@ public class Main
 			File jimpleStatFile = new File(jimpleKeywordStatDir, logFileName);
 			File uiStatFile = new File(uiKeywordStatDir, logFileName);
 			
+			//
+			// Create a keyword stat worker instance
+			// to do stat work
 			KeywordStat keywordStat = new KeywordStat(jimpleStatFile.getPath(), uiStatFile.getPath());
 			
 			//
